@@ -10,6 +10,7 @@
     const videoModal = document.querySelector('[data-video-modal]');
     const videoFrame = document.querySelector('[data-video-frame]');
     const videoClose = document.querySelector('[data-video-close]');
+    const videoTitle = document.querySelector('#video-modal-title');
     const navLinks = [...document.querySelectorAll('[data-section-nav] a[href^="#"]')];
     const trackedSections = [...document.querySelectorAll('main section[id]')];
     let toastTimer;
@@ -80,11 +81,12 @@
     document.querySelectorAll('[data-video-id]').forEach((button) => {
         button.addEventListener('click', () => {
             if (window.location.protocol === 'file:') {
-                showToast('Для просмотра видео запустите START-LOCAL.bat рядом с index.html.');
+                showToast('Видео доступно в опубликованной версии сайта.');
                 return;
             }
             if (button.dataset.videoId && videoModal && videoFrame) {
                 videoReturnFocus = button;
+                if (videoTitle) videoTitle.textContent = button.dataset.videoTitle || 'Видео Ильи Мизерных';
                 const params = new URLSearchParams({
                     autoplay: '1',
                     rel: '0',
@@ -97,6 +99,25 @@
             }
             showToast('Видео временно недоступно.');
         });
+    });
+
+    const performanceControls = [...document.querySelectorAll('[data-performance-target]')];
+    const performanceSlides = [...document.querySelectorAll('[data-performance-slide]')];
+    const performanceCopies = [...document.querySelectorAll('[data-performance-copy]')];
+
+    const showPerformance = (target) => {
+        if (!target) return;
+        performanceSlides.forEach((slide) => slide.classList.toggle('is-active', slide.dataset.performanceSlide === target));
+        performanceCopies.forEach((copy) => copy.classList.toggle('is-active', copy.dataset.performanceCopy === target));
+        performanceControls.forEach((control) => {
+            const isActive = control.dataset.performanceTarget === target;
+            control.classList.toggle('is-active', isActive);
+            control.setAttribute('aria-pressed', String(isActive));
+        });
+    };
+
+    performanceControls.forEach((control) => {
+        control.addEventListener('click', () => showPerformance(control.dataset.performanceTarget));
     });
 
     videoClose?.addEventListener('click', closeVideo);
