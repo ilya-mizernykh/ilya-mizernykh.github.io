@@ -178,9 +178,12 @@
         const scrollTop = window.scrollY;
         const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
         const progress = Math.min(Math.max(scrollTop / scrollable, 0), 1);
+        const routeProgress = window.innerWidth <= 600
+            ? Math.min(0.14 + progress * 1.45, 1)
+            : Math.min(progress * 1.35, 1);
         header?.classList.toggle('is-scrolled', scrollTop > 36);
         updateActiveNavigation();
-        root.style.setProperty('--route-progress', String(1 - Math.min(progress * 1.35, 1)));
+        root.style.setProperty('--route-progress', String(1 - routeProgress));
         root.style.setProperty('--hero-shift', `${Math.min(scrollTop * 0.12, 90)}px`);
         root.style.setProperty('--hero-scale', String(1 + Math.min(scrollTop / 16000, 0.035)));
         if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
