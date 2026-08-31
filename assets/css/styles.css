@@ -842,7 +842,7 @@ body.menu-open { overflow: hidden; }
     .hero-grid { grid-template-columns: 1fr; align-items: end; gap: 36px; padding-bottom: 72px; }
     .hero-copy { padding-top: 20vh; }
     .hero-record { display: none; }
-    .hero-media img { object-position: 64% center; }
+    .hero-media img { object-position: 82% center; }
     .hero-media-wash { background: linear-gradient(0deg, rgba(4,9,16,0.96) 0%, rgba(4,9,16,0.42) 72%, rgba(4,9,16,0.2)); }
     .hero-orbit { opacity: 0.65; }
     .orbit-one { width: 82vw; right: -27vw; top: 16vh; }
