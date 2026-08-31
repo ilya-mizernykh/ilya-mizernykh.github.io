@@ -6,6 +6,7 @@
     const menu = document.querySelector('[data-menu]');
     const toast = document.querySelector('[data-toast]');
     const progressBar = document.querySelector('.page-progress span');
+    const airRoute = document.querySelector('.air-route');
     const videoModal = document.querySelector('[data-video-modal]');
     const videoFrame = document.querySelector('[data-video-frame]');
     const videoClose = document.querySelector('[data-video-close]');
@@ -178,18 +179,28 @@
         const scrollTop = window.scrollY;
         const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
         const progress = Math.min(Math.max(scrollTop / scrollable, 0), 1);
-        const routeProgress = window.innerWidth <= 600
-            ? Math.min(0.14 + progress * 1.45, 1)
-            : Math.min(progress * 1.35, 1);
+        const isMobileRoute = window.innerWidth <= 600;
         header?.classList.toggle('is-scrolled', scrollTop > 36);
         updateActiveNavigation();
-        root.style.setProperty('--route-progress', String(1 - routeProgress));
+        if (isMobileRoute) {
+            const routeOffset = progress * 2600;
+            airRoute?.setAttribute('viewBox', `0 ${routeOffset.toFixed(2)} 1000 1000`);
+            root.style.setProperty('--route-progress', '0');
+        } else {
+            airRoute?.setAttribute('viewBox', '0 0 1000 3600');
+            root.style.setProperty('--route-progress', String(1 - Math.min(progress * 1.35, 1)));
+        }
         root.style.setProperty('--hero-shift', `${Math.min(scrollTop * 0.12, 90)}px`);
         root.style.setProperty('--hero-scale', String(1 + Math.min(scrollTop / 16000, 0.035)));
         if (progressBar) progressBar.style.transform = `scaleX(${progress})`;
     };
 
     window.addEventListener('scroll', () => {
+        if (scrollQueued) return;
+        scrollQueued = true;
+        requestAnimationFrame(updateScrollEffects);
+    }, { passive: true });
+    window.addEventListener('resize', () => {
         if (scrollQueued) return;
         scrollQueued = true;
         requestAnimationFrame(updateScrollEffects);

@@ -911,8 +911,18 @@ body.menu-open { overflow: hidden; }
     .footer-email { font-size: 22px; }
     .footer-meta { text-align: left; }
     .footer-bottom { display: grid; }
-    .air-route { opacity: 0.5; }
-    .air-route path { stroke-width: 1.8; }
+    .air-route {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100svh;
+        opacity: 0.46;
+    }
+    .air-route path {
+        stroke-width: 1.7;
+        stroke-dasharray: none;
+        stroke-dashoffset: 0;
+    }
     .video-modal { width: calc(100% - 20px); padding: 8px; border-radius: 14px; }
     .video-frame { border-radius: 9px; }
     .video-modal-close { top: 15px; right: 15px; width: 40px; height: 40px; }
