@@ -861,6 +861,8 @@ body.menu-open { overflow: hidden; }
 
 @media (max-width: 600px) {
     :root { --container: calc(100% - 32px); }
+    .page-progress { height: 4px; background: rgba(255,255,255,0.11); }
+    .page-progress span { box-shadow: 0 0 10px rgba(75,135,255,0.65); }
     .site-header { height: 78px; padding-inline: 16px; }
     .site-header.is-scrolled { height: 68px; }
     .brand-copy { display: none; }
@@ -909,7 +911,8 @@ body.menu-open { overflow: hidden; }
     .footer-email { font-size: 22px; }
     .footer-meta { text-align: left; }
     .footer-bottom { display: grid; }
-    .air-route { opacity: 0.34; }
+    .air-route { opacity: 0.5; }
+    .air-route path { stroke-width: 1.8; }
     .video-modal { width: calc(100% - 20px); padding: 8px; border-radius: 14px; }
     .video-frame { border-radius: 9px; }
     .video-modal-close { top: 15px; right: 15px; width: 40px; height: 40px; }
